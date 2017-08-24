@@ -22,7 +22,10 @@ namespace MVC_Test
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
-
+            bundles.Add(new ScriptBundle("~/bundles/jqueryangular").Include(
+                     "~/Scripts/jqueryangular/index.js",
+                      "~/Scripts/jqueryangular/main-app.start.js",
+                     "~/Scripts/jqueryangular/angular.min.js"));
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));

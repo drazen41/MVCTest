@@ -16,6 +16,11 @@ namespace MVC_Test.Controllers
              new People() {Name = "Test 1", Location = "Test1"}, 
              new People () { Name = "Test 2", Location = "Test 2"}
         };
+        List<People> peopleList = new List<People>{
+            new People() { Name = "Test", Location = "Test"},
+             new People() {Name = "Test 1", Location = "Test1"}, 
+             new People () { Name = "Test 2", Location = "Test 2"}
+        };
         // GET: api/People
         
 
@@ -26,9 +31,13 @@ namespace MVC_Test.Controllers
         }
         public IEnumerable<People>  GetAllPeople()
         {
+            return peopleList;
+        }
+        public IEnumerable<People> AddPerson(People person)
+        {
+            peopleList.Add(person);
             return people;
         }
-        
         public void Post([FromBody]string value)
         {
         }
