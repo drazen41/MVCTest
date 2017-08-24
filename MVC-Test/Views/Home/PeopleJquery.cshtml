@@ -20,9 +20,83 @@
     <button id="btn-add-evangelist">Add to list</button>
 </form>
 
-@Scripts.Render("~/bundles/jqueryangular")
 @section Scripts {
 
+@*@Scripts.Render("~/bundles/jqueryangular")*@
 
+    <script type="text/javascript">
+        $(function () {
+            restGet();
+            var $evangelists = $('#evangelists');
+            var $name = $('#name');
+            var $location = $('#location');
+
+            $('#btn-add-evangelist').on('click', function () {
+
+                // Add an eveangelist object to the list
+                var evangelist = {
+                    name: $name.val(),
+                    location: $location.val(),
+                };
+                restPost(evangelist);
+            });
+
+
+            /* GET data from the server and draw it to the page
+            ***************************************************/
+            function restGet() {
+                $.ajax({
+                    //url: 'http://core.stockatraders.com/api/people/getallpeople',
+                    url: 'http://localhost/MVC-Test/api/people/getallpeople',
+                    type: 'GET',
+                    datatype: 'json',
+                    //beforeSend: setHeader,
+
+                    success: function (data) {
+                        var len = data.length;
+
+                        for (var i = 0; i < len; i++) {
+                            $evangelists.append('<li>Name: ' + data[i].Name + ",&nbsp;&nbsp;" + ' Location: ' + data[i].Location + '</li>');
+                        }
+                    },
+                    error: function () { alert('Failed!'); },
+                });
+            }
+
+
+            /* POST our newly entered data to the server
+            ********************************************/
+            function restPost(evangelist) {
+                $.ajax({
+                    //    url: 'http://core.stockatraders.com/api/people/addperson',
+                    url: 'api/people/addperson',
+                    type: 'POST',
+                    datatype: 'json',
+                    //beforeSend: setHeader,
+                    data: JSON.stringify(evangelist),
+                    //contentType: 'application/json; charset=utf-8',
+                    
+                    success: function (data) {
+                        var len = data.length;
+                       
+                        for (var i = 0; i < len; i++) {
+                            $evangelists.append('<li>Name: ' + data[i].Name + ",&nbsp;&nbsp;" + ' Location: ' + data[i].Location + '</li>');
+                        }
+                    },
+                    error: function () { console.log(data); alert('Failed!'); },
+                });
+            }
+            
+
+
+            /* Used for authorization, to access the JSON data in the Azure Mobile Service
+            ******************************************************************************/
+
+
+
+
+        });
+        
+    </script>
 
 }

@@ -29,7 +29,8 @@ $('#btn-add-evangelist').on('click', function () {
 ***************************************************/
 function restGet(){
     $.ajax({
-        url: 'http://core.stockatraders.com/api/people/getallpeople',
+        //url: 'http://core.stockatraders.com/api/people/getallpeople',
+        url: 'http://localhost/MVC-Test/api/people/getallpeople',
         type:      'GET',
         datatype:  'json',
         //beforeSend: setHeader,      
@@ -38,7 +39,7 @@ function restGet(){
             var len = data.length;
 
             for(var i=0; i<len; i++){
-                $evangelists.append('<li>Name: ' + data[i].name + ",&nbsp;&nbsp;" + ' Location: ' + data[i].location + '</li>');
+                $evangelists.append('<li>Name: ' + data[i].Name + ",&nbsp;&nbsp;" + ' Location: ' + data[i].Location + '</li>');
             }
         },
         error: function() { alert('Failed!'); }, 
@@ -50,17 +51,18 @@ function restGet(){
 ********************************************/
 function restPost(evangelist){
     $.ajax({
-        url: 'http://core.stockatraders.com/api/people/addperson',
+    //    url: 'http://core.stockatraders.com/api/people/addperson',
+        url: 'http://localhost/MVC-Test/api/people/addperson',
         type:       'POST',
         datatype:   'json',
-        beforeSend: setHeader,   
+        //beforeSend: setHeader,   
         data:       evangelist,
 
         success: function (data) {
             var len = data.length;
 
             for (var i = 0; i < len; i++) {
-                $evangelists.append('<li>Name: ' + data[i].name + ",&nbsp;&nbsp;" + ' Location: ' + data[i].location + '</li>');
+                $evangelists.append('<li>Name: ' + data[i].Name + ",&nbsp;&nbsp;" + ' Location: ' + data[i].Location + '</li>');
             }
         },
         error:      function() { alert('Failed!'); },    

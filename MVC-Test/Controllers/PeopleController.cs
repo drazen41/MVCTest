@@ -16,11 +16,19 @@ namespace MVC_Test.Controllers
              new People() {Name = "Test 1", Location = "Test1"}, 
              new People () { Name = "Test 2", Location = "Test 2"}
         };
-        List<People> peopleList = new List<People>{
-            new People() { Name = "Test", Location = "Test"},
-             new People() {Name = "Test 1", Location = "Test1"}, 
-             new People () { Name = "Test 2", Location = "Test 2"}
-        };
+        List<People> peopleList = null;
+        public PeopleController()
+        {
+            peopleList = new List<People>();
+            People person1 = new People() { Name = "Test", Location = "Test"};
+            People person2 = new People() { Name = "Test1", Location = "Test1"};
+            People person3 = new People() { Name = "Test2", Location = "Test2"};
+            peopleList.Add(person1);
+            peopleList.Add(person2);
+            peopleList.Add(person3);
+            
+        
+        }
         // GET: api/People
         
 
@@ -31,15 +39,18 @@ namespace MVC_Test.Controllers
         }
         public IEnumerable<People>  GetAllPeople()
         {
-            return peopleList;
+            
+            return this.peopleList;
         }
-        public IEnumerable<People> AddPerson(People person)
+        public IEnumerable<People> AddPerson([FromBody] People person)
         {
+            
             peopleList.Add(person);
             return people;
         }
-        public void Post([FromBody]string value)
+        public void Post([FromBody]People   user)
         {
+            this.peopleList.Add(user);
         }
 
         // PUT: api/People/5

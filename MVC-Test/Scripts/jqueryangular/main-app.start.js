@@ -13,22 +13,23 @@ angular.module('MainApp', [
             'X-ZUMO-APPLICATION': 'ImDNVYiBYFCuENASFmQupAMlDUzamP37'
         }
     };
-
+    $scope.hello = "Hi there";
   getNames();
 
+  $scope.people_old = [{ 'Name': 'Judy', 'Location': 'NYC' }, { 'Name': 'Mary', 'Location': 'Goston' }];
   $scope.people = [];
   $scope._name     = "Default Name";
   $scope._location = "Default Location";
   $scope.user      = {
 
-    name:function(theName){
+    Name:function(theName){
       if(angular.isDefined(theName)){
         this._name = theName;
       }
       return this._name;
     },
 
-    location:function(theLocation){
+    Location:function(theLocation){
       if(angular.isDefined(theLocation)){
         this._location = theLocation;
       }
@@ -37,7 +38,7 @@ angular.module('MainApp', [
   }
 
   function getNames() {
-      $http.get('https://evangelists.azure-mobile.net/tables/people', config)
+      $http.get('http://localhost/MVC-Test/api/people/getallpeople')
    .then(function (res) {
        console.log(res);
        $scope.people = res.data;
@@ -46,10 +47,11 @@ angular.module('MainApp', [
 // add in resource 
  function addName(user){
      //$scope.categories.push(user);
-     $http.post('https://evangelists.azure-mobile.net/tables/people', user, config)
+     $http.post('http://localhost/MVC-Test/api/people/post', user)
        .then(function (res) {
            $scope.getNames();
        });
+     console.log("Add user name" + user.name);
  }
 
  $scope.addName = addName;
